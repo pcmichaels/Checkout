@@ -4,9 +4,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ClassLibrary1
+namespace Checkout.Interface
 {
     public class ICheckout
     {
+        public void Scan(string sku)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
