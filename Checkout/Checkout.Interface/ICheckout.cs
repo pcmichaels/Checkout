@@ -8,7 +8,7 @@ namespace Checkout.Interface
 {
     public interface ICheckout
     {
-        double GetTotalPrice();
+        decimal GetTotalPrice();
 
         void Scan(string sku);        
     }
