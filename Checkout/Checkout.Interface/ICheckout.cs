@@ -8,6 +8,8 @@ namespace Checkout.Interface
 {
     public class ICheckout
     {
+        public double TotalPrice { get; set; }
+
         public void Scan(string sku)
         {
             throw new NotImplementedException();
