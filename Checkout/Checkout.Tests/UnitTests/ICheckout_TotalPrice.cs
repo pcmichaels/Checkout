@@ -27,28 +27,25 @@ namespace Checkout.Tests
             Assert.AreEqual(expectedPrice, checkout.TotalPrice);
         }
 
-        [Test]
-        public void MultipleSingleItemsScanned_NoSpecialPrice()
+        [TestCase(100, "A", "A")]
+        [TestCase(90, "B", "B", "B", "B")]
+        [TestCase(160, "A", "A", "B", "A")]
+        [TestCase(205, "B", "B", "B", "B", "A", "D", "A")]
+        [TestCase(190, "B", "B", "B", "A", "D", "A")]
+        [TestCase(260, "C", "C", "C", "C", "D", "A", "B", "A", "B", "C")]
+        public void MultipleSingleItemsScanned(decimal expectedPrice, params string[] skus)
         {
+            foreach (string sku in skus)
+            {
+                // Arrange
+                ICheckout checkout = new Checkout.Core.Checkout();
 
-        }
+                // Act
+                checkout.Scan(sku);
 
-        [Test]
-        public void MultipleSingleItemsScanned_SpecialPrice()
-        {
-
-        }
-
-        [Test]
-        public void MultipleMixedItemsScanned_NoSpecialPrice()
-        {
-
-        }
-
-        [Test]
-        public void MultipleMixedItemsScanned_SpecialPrice()
-        {
-
+                // Asert
+                Assert.AreEqual(expectedPrice, checkout.TotalPrice);
+            }
         }
     }
 }
