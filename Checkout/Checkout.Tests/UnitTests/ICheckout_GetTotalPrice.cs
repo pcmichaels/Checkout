@@ -39,16 +39,16 @@ namespace Checkout.Tests
         {
             // Arrange
             PriceTable priceTable = PriceTableFactory.GetDefaultPriceTable();
-            foreach (string sku in skus)
-            {
-                ICheckout checkout = new Checkout.Core.Checkout(priceTable);
+            ICheckout checkout = new Checkout.Core.Checkout(priceTable);
 
             // Act
+            foreach (string sku in skus)
+            {            
                 checkout.Scan(sku);
+            }
 
             // Asert
-                Assert.AreEqual(expectedPrice, checkout.GetTotalPrice());
-            }
+            Assert.AreEqual(expectedPrice, checkout.GetTotalPrice());
         }
     }
 }
