@@ -44,6 +44,7 @@
     <Compile Include="Checkout.cs" />
     <Compile Include="ItemPrice.cs" />
     <Compile Include="PriceTable.cs" />
+    <Compile Include="PriceTableFactory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -1,4 +1,5 @@
-﻿using Checkout.Interface;
+﻿using Checkout.Core;
+using Checkout.Interface;
 using NUnit.Framework;
 using System;
 
@@ -19,7 +20,8 @@ namespace Checkout.Tests.UnitTests
             void ScanItem()
             {
                 // Arrange
-                ICheckout checkout = new Checkout.Core.Checkout();
+                PriceTable priceTable = PriceTableFactory.GetDefaultPriceTable();
+                ICheckout checkout = new Checkout.Core.Checkout(priceTable);
 
                 // Act
                 checkout.Scan(sku);
@@ -37,7 +39,8 @@ namespace Checkout.Tests.UnitTests
             void ScanItem()
             {
                 // Arrange
-                ICheckout checkout = new Checkout.Core.Checkout();
+                PriceTable priceTable = PriceTableFactory.GetDefaultPriceTable();
+                ICheckout checkout = new Checkout.Core.Checkout(priceTable);
 
                 // Act
                 checkout.Scan(sku);
@@ -58,7 +61,8 @@ namespace Checkout.Tests.UnitTests
                 void ScanItem()
                 {
                     // Arrange
-                    ICheckout checkout = new Checkout.Core.Checkout();
+                    PriceTable priceTable = PriceTableFactory.GetDefaultPriceTable();
+                    ICheckout checkout = new Checkout.Core.Checkout(priceTable);
 
                     // Act
                     checkout.Scan(sku);
@@ -74,18 +78,19 @@ namespace Checkout.Tests.UnitTests
         [TestCase(null)]
         public void MultipleItemsScanned_Invalid(params string[] skus)
         {
+            // Arrange
+            PriceTable priceTable = PriceTableFactory.GetDefaultPriceTable();
             foreach (string sku in skus)
             {
                 void ScanItem()
-                {
-                    // Arrange
-                    ICheckout checkout = new Checkout.Core.Checkout();
+                {                    
+                    ICheckout checkout = new Checkout.Core.Checkout(priceTable);
 
-                    // Act
+            // Act
                     checkout.Scan(sku);
                 }
 
-                // Assert
+            // Assert
                 Assert.Throws(typeof(ArgumentException), ScanItem);
             }
         }

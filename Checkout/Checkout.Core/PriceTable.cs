@@ -4,6 +4,6 @@ namespace Checkout.Core
 {
     public class PriceTable
     {
-        public List<ItemPrice> ItemPrices { get; set; }
+        public IEnumerable<ItemPrice> ItemPrices { get; set; }
     }
 }

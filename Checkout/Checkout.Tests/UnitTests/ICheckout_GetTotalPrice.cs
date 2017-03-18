@@ -1,6 +1,7 @@
 ﻿using System;
 using NUnit.Framework;
 using Checkout.Interface;
+using Checkout.Core;
 
 namespace Checkout.Tests
 {
@@ -9,22 +10,23 @@ namespace Checkout.Tests
     /// Invalid arguments are tested separately
     /// </summary>
     [TestFixture]
-    public class ICheckout_TotalPrice
+    public class ICheckout_GetTotalPrice
     {
         [TestCase("A", 50)]
         [TestCase("B", 30)]
         [TestCase("C", 20)]
         [TestCase("D", 15)]
-        public void SingleItemScanned_TotalPrice(string sku, decimal expectedPrice)
+        public void SingleItemScanned_GetTotalPrice(string sku, decimal expectedPrice)
         {
             // Arrange
-            ICheckout checkout = new Checkout.Core.Checkout();
+            PriceTable priceTable = PriceTableFactory.GetDefaultPriceTable();
+            ICheckout checkout = new Checkout.Core.Checkout(priceTable);
 
             // Act
             checkout.Scan(sku);
 
             // Asert
-            Assert.AreEqual(expectedPrice, checkout.TotalPrice);
+            Assert.AreEqual(expectedPrice, checkout.GetTotalPrice());
         }
 
         [TestCase(100, "A", "A")]
@@ -33,18 +35,19 @@ namespace Checkout.Tests
         [TestCase(205, "B", "B", "B", "B", "A", "D", "A")]
         [TestCase(190, "B", "B", "B", "A", "D", "A")]
         [TestCase(260, "C", "C", "C", "C", "D", "A", "B", "A", "B", "C")]
-        public void MultipleSingleItemsScanned(decimal expectedPrice, params string[] skus)
+        public void MultipleSingleItemsScanned_GetTotalPrice(decimal expectedPrice, params string[] skus)
         {
+            // Arrange
+            PriceTable priceTable = PriceTableFactory.GetDefaultPriceTable();
             foreach (string sku in skus)
             {
-                // Arrange
-                ICheckout checkout = new Checkout.Core.Checkout();
+                ICheckout checkout = new Checkout.Core.Checkout(priceTable);
 
-                // Act
+            // Act
                 checkout.Scan(sku);
 
-                // Asert
-                Assert.AreEqual(expectedPrice, checkout.TotalPrice);
+            // Asert
+                Assert.AreEqual(expectedPrice, checkout.GetTotalPrice());
             }
         }
     }
