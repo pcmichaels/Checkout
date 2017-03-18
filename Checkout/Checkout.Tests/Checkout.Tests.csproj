@@ -44,7 +44,8 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="UnitTests\ICheckout.cs" />
+    <Compile Include="UnitTests\ICheckout_Scan.cs" />
+    <Compile Include="UnitTests\ICheckout_TotalPrice.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
