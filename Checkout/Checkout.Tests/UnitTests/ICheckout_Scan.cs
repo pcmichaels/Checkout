@@ -72,10 +72,10 @@ namespace Checkout.Tests.UnitTests
                 Assert.DoesNotThrow(ScanItem);
             }
         }
-
+        
         [TestCase("1233", "aaa", "1231", "1232")]        
         [TestCase("1233", "1233", "1233", "1233")]
-        [TestCase(null)]
+        [TestCase(null, null)]
         public void MultipleItemsScanned_Invalid(params string[] skus)
         {
             // Arrange
