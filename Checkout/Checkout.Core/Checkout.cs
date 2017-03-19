@@ -27,19 +27,30 @@ namespace Checkout.Core
             // Iterate through the scanned items and add up the running total
             foreach (var item in _scannedItems)
             {
-                ItemPrice itemPrice = _priceTable.ItemPrices.Single(a => a.SKU == item.Key);
-                if (itemPrice.Threshold.HasValue && item.Value >= itemPrice.Threshold)
-                {
-                    runningTotal += (item.Value / itemPrice.Threshold.Value) * itemPrice.GroupPrice;
-                    runningTotal += (item.Value % itemPrice.Threshold.Value) * itemPrice.UnitPrice;
-                }
-                else
-                {
-                    runningTotal += item.Value * itemPrice.UnitPrice;
-                }
+                runningTotal += CalculatePrice(item.Key, item.Value);
             }
 
             return runningTotal;
+        }
+
+        private decimal CalculatePrice(string sku, int quantity)
+        {
+            decimal total = 0;
+
+            ItemPrice itemPrice = _priceTable.ItemPrices.Single(a => a.SKU == sku);
+            if (itemPrice.Threshold.HasValue && quantity >= itemPrice.Threshold)
+            {
+                // Take the grouped items and add on any stray single items that don't qualify
+                total = ((quantity / itemPrice.Threshold.Value) * itemPrice.GroupPrice)
+                        + (quantity % itemPrice.Threshold.Value) * itemPrice.UnitPrice;
+            }
+            else
+            {
+                // No grouped items
+                total = quantity * itemPrice.UnitPrice;
+            }
+
+            return total;
         }
 
         public void Scan(string sku)
