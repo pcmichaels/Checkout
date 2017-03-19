@@ -92,5 +92,25 @@ namespace Checkout.Tests.UnitTests
             Assert.Throws(typeof(InvalidOperationException), Calculate);
         }
 
+        [TestCase("A", 5)]
+        [TestCase("B", 5)]
+        [TestCase("C", 5)]
+        [TestCase("D", 5)]
+        public void Calculate_InValid_InvalidPriceTable(string sku, int quantity)
+        {
+            // Arrange
+            void Calculate()
+            {
+                IPriceEngine priceEngine = Helpers.PriceEngineHelper.GetDefaultPriceEngineWithInvalidPriceTable();
+
+                // Act
+                decimal value = priceEngine.Calculate(sku, quantity);
+            }
+
+            // Assert
+            Assert.Throws(typeof(Exception), Calculate);
+        }
+
+
     }
 }
