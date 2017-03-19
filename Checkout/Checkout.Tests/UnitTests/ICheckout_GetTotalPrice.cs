@@ -19,8 +19,8 @@ namespace Checkout.Tests
         public void SingleItemScanned_GetTotalPrice(string sku, decimal expectedPrice)
         {
             // Arrange
-            PriceTable priceTable = PriceTableFactory.GetDefaultPriceTable();
-            ICheckout checkout = new Checkout.Core.Checkout(priceTable);
+            IPriceEngine priceEngine = Helpers.PriceEngineHelper.GetDefaultPriceEngine();
+            ICheckout checkout = new Checkout.Core.Checkout(priceEngine);
 
             // Act
             checkout.Scan(sku);
@@ -38,8 +38,8 @@ namespace Checkout.Tests
         public void MultipleSingleItemsScanned_GetTotalPrice(decimal expectedPrice, params string[] skus)
         {
             // Arrange
-            PriceTable priceTable = PriceTableFactory.GetDefaultPriceTable();
-            ICheckout checkout = new Checkout.Core.Checkout(priceTable);
+            IPriceEngine priceEngine = Helpers.PriceEngineHelper.GetDefaultPriceEngine();
+            ICheckout checkout = new Checkout.Core.Checkout(priceEngine);
 
             // Act
             foreach (string sku in skus)

@@ -41,6 +41,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="PriceEngine.cs" />
     <Compile Include="Checkout.cs" />
     <Compile Include="ItemPrice.cs" />
     <Compile Include="PriceTable.cs" />

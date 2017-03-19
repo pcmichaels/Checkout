@@ -20,8 +20,8 @@ namespace Checkout.Tests.UnitTests
             void ScanItem()
             {
                 // Arrange
-                PriceTable priceTable = PriceTableFactory.GetDefaultPriceTable();
-                ICheckout checkout = new Checkout.Core.Checkout(priceTable);
+                IPriceEngine priceEngine = Helpers.PriceEngineHelper.GetDefaultPriceEngine();
+                ICheckout checkout = new Checkout.Core.Checkout(priceEngine);
 
                 // Act
                 checkout.Scan(sku);
@@ -39,8 +39,8 @@ namespace Checkout.Tests.UnitTests
             void ScanItem()
             {
                 // Arrange
-                PriceTable priceTable = PriceTableFactory.GetDefaultPriceTable();
-                ICheckout checkout = new Checkout.Core.Checkout(priceTable);
+                IPriceEngine priceEngine = Helpers.PriceEngineHelper.GetDefaultPriceEngine();
+                ICheckout checkout = new Checkout.Core.Checkout(priceEngine);
 
                 // Act
                 checkout.Scan(sku);
@@ -61,8 +61,8 @@ namespace Checkout.Tests.UnitTests
                 void ScanItem()
                 {
                     // Arrange
-                    PriceTable priceTable = PriceTableFactory.GetDefaultPriceTable();
-                    ICheckout checkout = new Checkout.Core.Checkout(priceTable);
+                    IPriceEngine priceEngine = Helpers.PriceEngineHelper.GetDefaultPriceEngine();
+                    ICheckout checkout = new Checkout.Core.Checkout(priceEngine);
 
                     // Act
                     checkout.Scan(sku);
@@ -79,12 +79,12 @@ namespace Checkout.Tests.UnitTests
         public void MultipleItemsScanned_Invalid(params string[] skus)
         {
             // Arrange
-            PriceTable priceTable = PriceTableFactory.GetDefaultPriceTable();
+            IPriceEngine priceEngine = Helpers.PriceEngineHelper.GetDefaultPriceEngine();
             foreach (string sku in skus)
             {
                 void ScanItem()
                 {                    
-                    ICheckout checkout = new Checkout.Core.Checkout(priceTable);
+                    ICheckout checkout = new Checkout.Core.Checkout(priceEngine);
 
             // Act
                     checkout.Scan(sku);

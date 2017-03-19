@@ -8,11 +8,11 @@ namespace Checkout.Core
     public class Checkout : ICheckout
     {
         Dictionary<string, int> _scannedItems = new Dictionary<string, int>();
-        PriceTable _priceTable;
+        IPriceEngine _priceEngine;
 
-        public Checkout(PriceTable priceTable)
+        public Checkout(IPriceEngine priceEngine)
         {
-            _priceTable = priceTable;
+            _priceEngine = priceEngine;
         }
 
         /// <summary>
@@ -27,35 +27,15 @@ namespace Checkout.Core
             // Iterate through the scanned items and add up the running total
             foreach (var item in _scannedItems)
             {
-                runningTotal += CalculatePrice(item.Key, item.Value);
+                runningTotal += _priceEngine.Calculate(item.Key, item.Value);
             }
 
             return runningTotal;
         }
 
-        private decimal CalculatePrice(string sku, int quantity)
-        {
-            decimal total = 0;
-
-            ItemPrice itemPrice = _priceTable.ItemPrices.Single(a => a.SKU == sku);
-            if (itemPrice.Threshold.HasValue && quantity >= itemPrice.Threshold)
-            {
-                // Take the grouped items and add on any stray single items that don't qualify
-                total = ((quantity / itemPrice.Threshold.Value) * itemPrice.GroupPrice)
-                        + (quantity % itemPrice.Threshold.Value) * itemPrice.UnitPrice;
-            }
-            else
-            {
-                // No grouped items
-                total = quantity * itemPrice.UnitPrice;
-            }
-
-            return total;
-        }
-
         public void Scan(string sku)
         {
-            if (!_priceTable.ItemPrices.Any(a => a.SKU == sku))
+            if (!_priceEngine.Validate(sku))            
             {
                 throw new ArgumentException();
             }

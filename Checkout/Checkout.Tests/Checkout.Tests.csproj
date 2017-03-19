@@ -45,9 +45,11 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Helpers\PriceEngineHelper.cs" />
     <Compile Include="UnitTests\ICheckout_Scan.cs" />
     <Compile Include="UnitTests\ICheckout_GetTotalPrice.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="UnitTests\ICheckout_PriceEngine.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
