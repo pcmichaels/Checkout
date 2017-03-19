@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Checkout.Core
+namespace Checkout.Model
 {
     public class PriceTable
     {

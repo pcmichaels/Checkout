@@ -63,6 +63,10 @@
       <Project>{3a0348c8-501c-45c2-b1b6-c8d43c78cfd8}</Project>
       <Name>Checkout.Interface</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Checkout.Model\Checkout.Model.csproj">
+      <Project>{06593043-78B3-4623-9E4E-188A06BEE8C3}</Project>
+      <Name>Checkout.Model</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets" Condition="Exists('$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets')" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

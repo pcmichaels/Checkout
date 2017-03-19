@@ -1,5 +1,6 @@
 ﻿using Checkout.Core;
 using Checkout.Interface;
+using Checkout.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;

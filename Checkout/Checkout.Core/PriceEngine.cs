@@ -1,6 +1,7 @@
 ﻿using Checkout.Interface;
 using System.Linq;
 using System;
+using Checkout.Model;
 
 namespace Checkout.Core
 {

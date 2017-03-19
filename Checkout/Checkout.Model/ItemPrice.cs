@@ -1,4 +1,4 @@
-﻿namespace Checkout.Core
+﻿namespace Checkout.Model
 {
     public class ItemPrice
     {
